@@ -3,7 +3,7 @@ import {expect} from 'chai'
 
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {createAction} from '../src/index'
+import {createAction, types} from '../src/index'
 
 const state = {
   count: 0,
@@ -37,6 +37,8 @@ const fetchPetApi = function (name) {
 }
 
 const fetchPet = createAction('fetch pet', (name) => fetchPetApi(name))
+
+console.log(types.all())
 
 const mutations = {
   [increment] (state) { state.count++ },
