@@ -1,0 +1,25 @@
+{
+  "name": "vuex-action",
+  "version": "1.0.0",
+  "description": "Utilities for vuex to create actions.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varHarrie/vuex-action.git"
+  },
+  "keywords": [
+    "vuex",
+    "vue",
+    "action",
+    "util"
+  ],
+  "author": "varHarrie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/varHarrie/vuex-action/issues"
+  },
+  "homepage": "https://github.com/varHarrie/vuex-action#readme"
+}
