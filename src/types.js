@@ -15,3 +15,7 @@ export function remove (name) {
 export function has (name) {
   return !!types[name]
 }
+
+export function all () {
+  return Object.keys(types).filter(has)
+}
