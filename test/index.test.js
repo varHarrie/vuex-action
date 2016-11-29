@@ -84,11 +84,12 @@ describe('test', function () {
   })
 
   it('fetchPet success', function (done) {
-    fetchPet(store, 'Cloris').then((a) => {
+    const promise = fetchPet(store, 'Cloris').then((a) => {
       expect(state.pet).to.be.an('object')
       expect(state.pet).to.have.property('name', 'Cloris')
       expect(state.pet).to.have.property('type', 'cat')
       done()
     })
+    expect(promise).to.be.a('promise')
   })
 })

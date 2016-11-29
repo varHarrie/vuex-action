@@ -1,4 +1,5 @@
 import {create} from './types'
+import {isPromise} from './utils'
 
 export default function createAction (description, handler) {
   if (typeof description !== 'string') {
@@ -13,7 +14,7 @@ export default function createAction (description, handler) {
 
     if (typeof handler === 'function') {
       const result = handler(...args)
-      if (result instanceof Promise) {
+      if (isPromise(result)) {
         return result.then((arg) => {
           dispatch(type, arg)
           return arg
