@@ -3,7 +3,7 @@ import {expect} from 'chai'
 
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {createAction, types} from '../src/index'
+import {createAction} from '../src/index'
 
 const state = {
   count: 0,
@@ -14,31 +14,21 @@ const state = {
   pet: null
 }
 
-const increment = createAction('+=1')
-const decrement = createAction('-=1')
-const add = createAction('+=num')
+const increment = createAction()
+const decrement = createAction()
+const add = createAction()
 
-const setUser = createAction('set user', (user) => {
+const setUser = createAction((user) => {
   user.gender = user.gender || 'male'
   return user
 })
 
 const fetchPetApi = function (name) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const pets = {
-        'Cloris': {name: 'Cloris', type: 'cat'},
-        'Cara': {name: 'Cara', type: 'dog'}
-      }
-      if (pets[name]) resolve(pets[name])
-      else reject(new Error('Can not fetch pets'))
-    }, 100)
-  })
+  if (name) return Promise.resolve({name, type: 'dog'})
+  else return Promise.reject(new Error('Can not fetch pets'))
 }
 
-const fetchPet = createAction('fetch pet', (name) => fetchPetApi(name))
-
-console.log(types.all())
+const fetchPet = createAction((name) => fetchPetApi(name))
 
 const mutations = {
   [increment] (state) { state.count++ },
@@ -77,9 +67,7 @@ describe('test', function () {
   })
 
   it('fetchPet fail', function (done) {
-    fetchPet(store, 'Not Such Name').then(() => {
-      expect(state.pet).to.be.null
-      done()
+    fetchPet(store).then(() => {
     }).catch((err) => done())
   })
 
@@ -87,7 +75,7 @@ describe('test', function () {
     const promise = fetchPet(store, 'Cloris').then((a) => {
       expect(state.pet).to.be.an('object')
       expect(state.pet).to.have.property('name', 'Cloris')
-      expect(state.pet).to.have.property('type', 'cat')
+      expect(state.pet).to.have.property('type', 'dog')
       done()
     })
     expect(promise).to.be.a('promise')

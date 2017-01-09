@@ -1,29 +1,25 @@
-import {create} from './types'
-import {isPromise} from './utils'
+import uuid from 'uuid/v4'
+import {isPromise, isFunction} from './utils'
 
-export default function createAction (description, handler) {
-  if (typeof description !== 'string') {
-    handler = description
-    description = ''
+function createPayload (handler, args) {
+  return isFunction(handler) ? handler(...args) : args[0]
+}
+
+export default function createAction (type, handler) {
+  if (typeof type !== 'string') {
+    handler = type
+    type = uuid()
   }
 
-  const type = create(description)
-
-  const action = function ({dispatch}, ...args) {
-    if (!handler) dispatch(type, ...args)
-
-    if (typeof handler === 'function') {
-      const result = handler(...args)
-      if (isPromise(result)) {
-        return result.then((arg) => {
-          dispatch(type, arg)
-          return arg
-        })
-      } else if (result instanceof Array) {
-        dispatch(type, ...result)
-      } else {
-        dispatch(type, result)
-      }
+  const action = function ({commit, dispatch}, ...args) {
+    commit = commit || dispatch
+    const payload = createPayload(handler, args)
+    if (isPromise(payload)) {
+      return payload.then((arg) => {
+        commit(type, arg)
+      })
+    } else {
+      commit(type, payload)
     }
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "vuex-action",
-  "version": "1.0.2",
+  "version": "1.1.0-beta.1",
   "description": "Utilities for vuex to create actions.",
   "main": "dist/vuex-action.min.js",
   "scripts": {
@@ -39,5 +39,8 @@
     "vue": "^1.0.28",
     "vuex": "^1.0.0",
     "webpack": "^1.13.3"
+  },
+  "dependencies": {
+    "uuid": "^3.0.1"
   }
 }
