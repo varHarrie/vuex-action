@@ -17,6 +17,7 @@ export default function createAction (type, handler) {
     if (isPromise(payload)) {
       return payload.then((arg) => {
         commit(type, arg)
+        return arg
       })
     } else {
       commit(type, payload)
