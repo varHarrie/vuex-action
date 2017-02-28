@@ -1,12 +1,12 @@
 import uuid from 'uuid/v4'
-import {isPromise, isFunction} from './utils'
+import {isString, isPromise, isFunction} from './utils'
 
 function createPayload (handler, args) {
   return isFunction(handler) ? handler(...args) : args[0]
 }
 
 export default function createAction (type, handler) {
-  if (typeof type !== 'string') {
+  if (!isString(type)) {
     handler = type
     type = uuid()
   }
