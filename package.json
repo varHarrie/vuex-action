@@ -5,7 +5,7 @@
   "main": "dist/vuex-action.min.js",
   "scripts": {
     "build": "webpack",
-    "test": "mocha --compilers js:babel-core/register"
+    "test": "nyc mocha --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",
@@ -36,8 +36,9 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "mocha": "^3.2.0",
-    "vue": "^1.0.28",
-    "vuex": "^1.0.0",
+    "nyc": "^10.1.2",
+    "vue": "^2.2.1",
+    "vuex": "^2.2.1",
     "webpack": "^1.13.3"
   },
   "dependencies": {
