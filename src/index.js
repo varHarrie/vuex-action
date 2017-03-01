@@ -1,4 +1,2 @@
-export {
-  default as createAction,
-  default as createActions
-} from './createAction'
+export {default as createAction} from './createAction'
+export {default as createActions} from './createActions'
