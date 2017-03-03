@@ -21,12 +21,16 @@ const actions = {
   add: createAction('ADD'),
   subtract: createAction('SUBTRACT', (count) => count || 1),
   fetchUser: createAction((id) => fetchUserApi(id)),
-  fetchUserFail: createAction((id) => fetchUserFailApi(id))
+  fetchUserFail: createAction((id) => fetchUserFailApi(id)),
+  multiParamFunc: createAction(({a, b, c}) => ({a, b, c}))
 }
 
 const state = {
   count: 0,
-  user: null
+  user: null,
+  a: 0,
+  b: 0,
+  c: 0
 }
 
 const mutations = {
@@ -35,7 +39,12 @@ const mutations = {
   [actions.add] (state, count) { state.count += count },
   [actions.subtract] (state, count) { state.count -= count },
   [actions.fetchUserFail] (state, user) { throw new Error('Unreachable code block') },
-  [actions.fetchUser] (state, user) { state.user = user }
+  [actions.fetchUser] (state, user) { state.user = user },
+  [actions.multiParamFunc] (state, {a, b, c}) {
+    state.a = a
+    state.b = b
+    state.c = c
+  }
 }
 
 const store = new Vuex.Store({state, mutations, actions})
@@ -75,5 +84,12 @@ describe('[createAction]', function () {
       expect(data).to.have.property('name', 'varHarrie')
       done()
     })
+  })
+
+  it('multiParamFunc', function () {
+    store.dispatch('multiParamFunc', {a: 1, b: 2, c: 3})
+    expect(store.state.a).to.equal(1)
+    expect(store.state.b).to.equal(2)
+    expect(store.state.c).to.equal(3)
   })
 })
