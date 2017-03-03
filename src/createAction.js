@@ -2,7 +2,7 @@ import uuid from 'uuid/v4'
 import {isString, isPromise, isFunction} from './utils'
 
 function createPayload (handler, args) {
-  return isFunction(handler) ? handler(...args) : args[0]
+  return isFunction(handler) ? handler(args) : args
 }
 
 export default function createAction (type, handler) {
@@ -11,7 +11,7 @@ export default function createAction (type, handler) {
     type = uuid()
   }
 
-  const action = function ({commit, dispatch}, ...args) {
+  const action = function ({commit, dispatch}, args) {
     commit = commit || dispatch
     const payload = createPayload(handler, args)
     if (isPromise(payload)) {
