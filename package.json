@@ -1,6 +1,6 @@
 {
   "name": "vuex-action",
-  "version": "1.2.0-beta.1",
+  "version": "1.2.0",
   "description": "Utilities for vuex to create actions.",
   "main": "dist/vuex-action.min.js",
   "scripts": {
